@@ -11,9 +11,9 @@
     self.Board.prototype = {
         get Elements(){
             let elements = this.bars;
-           //elements.push(this.ball);
+           //elements.push(this.bars);
             
-          return elements;
+        return elements;
 
         }
     }
@@ -33,15 +33,15 @@
             
             for (let index =0;  this.board.Elements.length - 1 > index ; index++) {
               let element = this.board.Elements[index];
-              console.log(element);
+              
               draw(this.ctx, element)
                 
             }
         }
     }
     function draw(ctx, element) {
-        console.log(element);
-        if(element != null && element.hasOwnProperty("kind")){
+       
+        if(element !== null && element.hasOwnProperty("kind")){
         switch(element.kind){
             
             case "rectangle":
@@ -60,34 +60,48 @@
         this.height = height;
         this.board = board;
         this.board.bars.push(this);
+        this.speed = 10;
 
         this.kind = "rectangle"
     }
 
         self.Bar.prototype ={
-            //down: function(){
+            down: function(){
+                this.y += this.speed;
                 
 
-          //  },
-           // up: function(){
+            },
+            up: function(){
+                this.y -= this.speed; 
 
             }
-//
- //       }
+
+       }
         
 
 
     
 })();
-
-function main() {
     let canvas = document.querySelector("#pong");
     let board = new Board (800, 400);
-    let bar = new Bar (33, 133, 123, 33, board);
-    let bar1 = new Bar (22, 33, 123, 33, board);
-    let bar22= new Bar (44, 13, 123, 33, board);
-    let bar3 = new Bar (55, 3, 123, 33, board);
+    let bar = new Bar (12, 130, 12, 33, board);
+    let bar1 = new Bar (500, 130, 23, 33, board);
+    
     let boardV =  new BoardView(board, canvas);
+document.addEventListener("keydown", handleKeyDown);
+//document.addEventListener("keyup", handleKeyUp, false);
+function handleKeyDown(e){
+    console.log(e);
+    if(e.target.keyCode === 87){
+        bar.up();
+        console.log(this.yw);
+
+    }
+
+}
+    
+function main() {
+    
     boardV.draw();
 
     
